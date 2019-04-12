@@ -1,5 +1,4 @@
 # PUBG Finish Placement Prediction
-#### Get ready for a tasty Chicken Dinner
 
 ## Project Charter
 
@@ -22,7 +21,7 @@ Number of app downloads is a good measure of pupularity and number of times the 
 
 Create an app that suggests final finish placement for a given set of in-game charasteristics and enables desiging a better gaiming strategy   
 
-#### Epic
+### Epic
 
 Prepare data, built model, design app and productionalize the app to predict finish placement in PUBG
 
