@@ -25,7 +25,7 @@ Create an app that suggests final finish placement for a given set of in-game ch
 
 Prepare data, built model, design app and productionalize the app to predict finish placement in PUBG
 
-##### Stories
+### Stories
 
  - **US0**: Find appropeiate PUBG dataset with relevant features
  - **US1**: Upload the dataset into a RDS
