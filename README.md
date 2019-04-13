@@ -6,7 +6,7 @@
 Crack the winnning formula in PUBG and provide PUBG enthusiasts a platform to understand what it takes to win a game
 
 ### Mission
-With over 50 million copies sold, PUBG is the fifth best selling game of all time, and has millions of active monthly players. With n number of different people playing with different strategies, it will be fun to know what helps you to win the game. What's the best strategy to win in PUBG? Should you sit in one spot and hide your way into victory, or do you need to be the top shot? Do you help/revive your teammates or let them die? The app will predict the finish placement based on the in-game statistics. Also the app will provide the user with the importance of features w.r.t final finish placement. PUBG enthusiasts can use the app to plan their game strategy and taste a tasty Chicken Dinner.
+With over 50 million copies sold, PUBG is the fifth best selling game of all time, and has millions of active monthly players. PUBG is a  Battle Royale-style video game where 100 players are dropped onto an island empty-handed and must explore, scavenge, and eliminate other players until only one is left standing. With n number of different people playing with different strategies, it will be fun to know what helps you to win the game. What's the best strategy to win in PUBG? Should you sit in one spot and hide your way into victory, or do you need to be the top shot? Do you help/revive your teammates or let them die? The app will predict the finish placement based on the in-game statistics. Also the app will provide the user with the importance of features w.r.t final finish placement. PUBG enthusiasts can use the app to plan their game strategy and taste a tasty Chicken Dinner.
 
 ### Success Criteria
 
@@ -23,40 +23,42 @@ Create an app that suggests final finish placement for a given set of in-game ch
 
 ### Epic
 
-Prepare data, built model, design app and productionalize the app to predict finish placement in PUBG
+Built a prediction pipeline to predict finish placement in PUBG and productionalize the app 
 
 ### Stories
 
- - **US0**: Find appropeiate PUBG dataset with relevant features
- - **US1**: Upload the dataset into a RDS
- - **US2**: Data preprocessing - cleaning missing, incoherent and incorrect data
- - **US3**: Exploratory Data Analysis - story generation and visualization
- - **US4**: Feature Engineering
- - **US5**: Prediction model selection and parameter tuning
- - **US6**: Model Evaluation
- - **US7**: Write unit tests to test each step of the model building process
- - **US8**: Create a front-end which accepts ingame statistics as user input and returns predictied finish placement 
- - **US9**: Create a script to feed user input to the model to get predictied finish placement
- - **US10**: Build a prediction pipeline in EC2 instance
- - **US11**: Create UAT cases to ensure the prediction pipeline does not break 
- - **US12**: Write script to log user input and error
- - **US13**: Deploy the app in production environment after UAT is passed
+ - **US1**: Spin up ec2 on AWS. Create requirements.txt to make reproducible environment.
+ - **US2**: Find appropeiate PUBG dataset with relevant features
+ - **US3**: Upload the dataset into a RDS
+ - **US4**: Data preprocessing - cleaning missing, incoherent and incorrect data
+ - **US5**: Exploratory Data Analysis - story generation and visualization
+ - **US6**: Feature Engineering - Leverage understanding from EDA to engineer the features to increase the models prediction power
+ - **US7**: Prediction model selection and parameter tuning - Linear Regression, Random Forest and Neural Network 
+ - **US8**: Model Evaluation - cross validation to optimize variance/bias tradeoff 
+ - **US9**: Write unit tests to test each step of the model building process
+ - **US10**: Front-end development - CSS/HTML UI with drop down and text boxes which accepts ingame statistics as user input and returns predictied finish placement 
+ - **US11**: Create a script to feed user input to the model to get predictied finish placement
+ - **US12**: Build a prediction pipeline in EC2 instance
+ - **US13**: Create UAT cases to ensure the prediction pipeline does not break 
+ - **US14**: Write script to log user input and error
+ - **US15**: Deploy the app in production environment after UAT is passed
  
 ## Backlog
- - **Theme1.Epic1.US0** (2pts) - PLANNED: sprint 1
- - **Theme1.Epic1.US1** (1pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US2** (2pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US3** (4pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US4** (4pt) - PLANNED: sprint 1
+ - **Theme1.Epic1.US1** (2pts) - PLANNED: sprint 1
+ - **Theme1.Epic1.US2** (2pts) - PLANNED: sprint 1
+ - **Theme1.Epic1.US3** (1pt) - PLANNED: sprint 1
+ - **Theme1.Epic1.US4** (2pt) - PLANNED: sprint 1
  - **Theme1.Epic1.US5** (4pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US6** (4pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US7** (2pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US8** (4pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US9** (2pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US10** (2pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US11** (2pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US12** (1pt) - PLANNED: sprint 1
- - **Theme1.Epic1.US13** (2pt) - PLANNED: sprint 1
+ - **Theme1.Epic1.US6** (4pt)
+ - **Theme1.Epic1.US7** (4pt)
+ - **Theme1.Epic1.US8** (4pt)
+ - **Theme1.Epic1.US9** (2pt)
+ - **Theme1.Epic1.US10** (4pt)
+ - **Theme1.Epic1.US11** (2pt)
+ - **Theme1.Epic1.US12** (2pt) 
+ - **Theme1.Epic1.US13** (2pt) 
+ - **Theme1.Epic1.US14** (1pt) 
+ - **Theme1.Epic1.US15** (2pt) 
  
 ## Icebox
  
