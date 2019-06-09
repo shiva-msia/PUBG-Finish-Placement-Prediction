@@ -7,10 +7,12 @@ To create a database in RDS run the module run_create_database_rds.py:
 import sys
 import yaml
 import sqlalchemy
-import config
+import src.config
 from sqlalchemy import create_engine, Column, Integer, String, Text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import pandas as pd
+import pymysql
 
 
 def ifin(param, dictionary, alt=None):
@@ -112,66 +114,40 @@ class train_pubg(Base):
         self.revives, self.rideDistance, self.roadKills, self.swimDistance, self.teamKills, self.vehicleDestroys,
         self.walkDistance, self.weaponsAcquired, self.winPoints, self.winPlacePerc)
 
-class test_pubg(Base):
-    """ Defines the data model for the table `test_pubg`. """
-
-    __tablename__ = 'test_pubg'
-
-    Id = Column(String(100), primary_key=True, unique=True, nullable=False)
-    groupId = Column(String(100), unique=False, nullable=False)
-    matchId = Column(String(100), unique=False, nullable=False)
-    assists = Column(Integer, unique=False, nullable=False)
-    boosts = Column(Integer, unique=False, nullable=False)
-    damageDealt = Column(Integer, unique=False, nullable=False)  # float
-    DBNOs = Column(Integer, unique=False, nullable=False)
-    headshotKills = Column(Integer, unique=False, nullable=False)
-    heals = Column(Integer, unique=False, nullable=False)
-    killPlace = Column(Integer, unique=False, nullable=False)
-    killPointsElo = Column(Integer, unique=False, nullable=False)
-    kills = Column(Integer, unique=False, nullable=False)
-    killStreaks = Column(Integer, unique=False, nullable=False)
-    longestKill = Column(Integer, unique=False, nullable=False)  # float
-    matchDuration = Column(Integer, unique=False, nullable=False)
-    matchType = Column(String(100), unique=False, nullable=False)
-    maxPlace = Column(Integer, unique=False, nullable=False)
-    numGroups = Column(Integer, unique=False, nullable=False)
-    rankPointsElo = Column(Integer, unique=False, nullable=False)
-    revives = Column(Integer, unique=False, nullable=False)
-    rideDistance = Column(Integer, unique=False, nullable=False)  # float
-    roadKills = Column(Integer, unique=False, nullable=False)
-    swimDistance = Column(Integer, unique=False, nullable=False)  # float
-    teamKills = Column(Integer, unique=False, nullable=False)
-    vehicleDestroys = Column(Integer, unique=False, nullable=False)  # float
-    walkDistance = Column(Integer, unique=False, nullable=False)
-    weaponsAcquired = Column(Integer, unique=False, nullable=False)
-    winPoints = Column(Integer, unique=False, nullable=False)
-
-    def __repr__(self):
-        test_pubg_repr = "<test_pubg(Id='%s', groupId='%s', matchId='%s', assists='%d', boosts = '%d', damageDealt = '%d', DBNOs = '%d', headshotKills = '%d', heals = '%d', killPlace = '%d', killPointsElo = '%d', kills = '%d', killStreaks = '%d', longestKill = '%d', matchDuration = '%d', matchType = '%s', maxPlace = '%d', numGroups = '%d', rankPointsElo = '%d', revives = '%d', rideDistance = '%d', roadKills = '%d', swimDistance = '%d', teamKills = '%d', vehicleDestroys = '%d', walkDistance = '%d', weaponsAcquired = '%d', winPoints = '%d', winPlacePerc = '%d'>"
-        return test_pubg_repr % (
-        self.Id, self.groupId, self.matchId, self.assists, self.boosts, self.damageDealt, self.DBNOs,
-        self.headshotKills, self.heals, self.killPlace, self.killPointsElo, self.kills, self.killStreaks,
-        self.longestKill, self.matchDuration, self.matchType, self.maxPlace, self.numGroups, self.rankPointsElo,
-        self.revives, self.rideDistance, self.roadKills, self.swimDistance, self.teamKills, self.vehicleDestroys,
-        self.walkDistance, self.weaponsAcquired, self.winPoints, self.winPlacePerc)
-
 
 def create_db(args):
     """Creates a RDS or a SQLITE database (based on configuration) with train_pubg table
     Returns: None
     """
-    dbconfig = config.DBCONFIG
+    dbconfig = src.config.DBCONFIG
     try:
         if dbconfig is not None:
-            engine = create_connection(dbconfig=config.DBCONFIG,username=args.user,password=args.password)
+            engine = create_connection(dbconfig=src.config.DBCONFIG, username=args.user, password=args.password)
             print("Creating RDS database")
         else:
-            engine = create_connection(engine_string=config.SQLALCHEMY_DATABASE_URI)
+            engine = create_connection(engine_string=src.config.SQLALCHEMY_DATABASE_URI)
             print("Creating sqlite database")
-
         Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
+        print("Import data")
+        df = pd.read_csv("https://s3.us-east-2.amazonaws.com/pubg-finish-prediction-app/Data/train_pubg.csv")
+        short_df = df[df['matchType'] == 'solo']
+        #short_df = short_df.iloc[1:100,:]
+        print("Establish connection")
+        session = get_session(engine)
+        print("Insert data")
+        # old_ARIMA_Params = session.query(ARIMA_Params.CURRENCY, ARIMA_Params.P, ARIMA_Params.D, ARIMA_Params.Q)
+        # old_ARIMA_Params.delete()
+        session.bulk_insert_mappings(train_pubg, short_df.to_dict(orient="records"))
+        session.commit()
+
         print("Database created with tables")
+        # with open(src.config.DBCONFIG, "r") as f:
+        #     db = yaml.load(f)
+        # temp_conn = pymysql.connect(host=db['host'], user=args.user, port=db['port'], passwd=args.password, db=db['dbname'])
+        # print("Running Query")
+        # temp = pd.read_sql('select count(*) from train_pubg limit 10;', con=temp_conn)
+        # print(temp)
     except Exception as e:
         print("error")
         sys.exit(1)
