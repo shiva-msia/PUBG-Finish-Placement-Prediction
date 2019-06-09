@@ -1,0 +1,28 @@
+generate_features:
+    FEATURES : ['boosts', 'damageDealt', 'heals', 'killStreaks', 'longestKill','rideDistance', 'walkDistance', 'weaponsAcquired', 'winPlacePerc']
+    DATA_PATH : "https://s3.us-east-2.amazonaws.com/pubg-finish-prediction-app/Data/train_pubg.csv"
+    TRAIN_X_PATH : "data/train_predictor.csv"
+    TRAIN_Y_PATH : "data/train_response.csv"
+    TEST_X_PATH : "data/test_predictor.csv"
+    TEST_Y_PATH : "data/test_response.csv"
+    S3_BUCKET : "pubg-finish-prediction-app"
+
+train:
+    PREDICTOR : "data/train_predictor.csv"
+    RESPONSE : "data/train_response.csv"
+    MODEL_PATH : "models/random_forest_model.pkl"
+    S3_BUCKET : "pubg-finish-prediction-app"
+score:
+    PREDICTOR : "data/test_predictor.csv"
+    MODEL_PATH : "models/random_forest_model.pkl"
+    PREDICTED : "data/test_predicted.npy"
+    S3_BUCKET : "pubg-finish-prediction-app"
+evaluate:
+    RESPONSE : "data/test_response.csv"
+    PREDICTED : "data/test_predicted.npy"
+    CONFUSION_PATH : "figures/confusion_matrix.png"
+    IMPORTANCE_PATH : "figures/feature_importance.png"
+    PREDICTOR : "data/train_predictor.csv"
+    MODEL_PATH : "models/random_forest_model.pkl"
+    R2_PATH : "data/r2.npy"
+    S3_BUCKET : "pubg-finish-prediction-app"
