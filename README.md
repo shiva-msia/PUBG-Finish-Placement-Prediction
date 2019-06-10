@@ -71,26 +71,26 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
 1. SSH onto EC2 Instance
    
 2. Create new environment
-  > conda create --name pubg python=3.7
-  > conda activate pubg
+- **conda create --name pubg python=3.7
+- **conda activate pubg
 3. Clone the git project into the env:  pubg
-  > git init
-  > git clone https://github.com/shiva-msia/PUBG-Finish-Placement-Prediction.git
+- **git init
+- **git clone https://github.com/shiva-msia/PUBG-Finish-Placement-Prediction.git
 4. Go into PUBG-Finish-Placement-Prediction folder
-  > cd PUBG-Finish-Placement-Prediction/
+- **cd PUBG-Finish-Placement-Prediction/
 5. Install requirements.txt file
-  > pip install -r requirements.txt
+- **pip install -r requirements.txt
 6. Change the HOST from "127.0.0.1" to "0.0.0.0" in app_config.py
-  > vi app/app_config.py
+- **vi app/app_config.py
 7. Check screen version
-  > screen --version
+- **screen --version
 8. Start screen named session
-  > screen -S msia423-screen-session
-  > conda activate pubg
+- **screen -S msia423-screen-session
+- **conda activate pubg
 9. Run app
-  > python run.py app
+- **python run.py app
 10. Detach screen session
-  > ctrl+a d
+- **ctrl+a d
 
 ## Repo Structure
 
