@@ -65,7 +65,7 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
 - Create a fancy front-end UI using D3
 - Use spacial data to recommend the best places to land in a PUBG map
 
-## Steps to deplot the app
+## Steps to deploy PUBG Finish Prediction app
 
 **Steps to create a new conda environment to run python scripts:**
 1. SSH onto EC2 Instance
