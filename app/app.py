@@ -1,13 +1,8 @@
 import pickle
-# import traceback
-# import os
-# import xgboost
 import pandas as pd
 import numpy as np
 from flask import render_template, request, redirect, url_for
-# from app import db, app
 from flask import Flask
-# from src.models import Churn_Prediction
 from flask_sqlalchemy import SQLAlchemy
 import boto3
 
@@ -76,28 +71,6 @@ def add_entry():
         predicted = np.where(predicted > 1, 1, predicted)
         place = ((1 - predicted.round(2)) * 100).astype('int')
 
-        # customer1 = Churn_Prediction(age=float(Age), activeMember=float(IsActiveMember),
-        #                              numProducts=float(NumOfProducts),
-        #                              fromGermany=float(Germany), gender=float(Male), balance=float(Balance),
-        #                              hasCrCard=float(HasCrCard),
-        #                              tenure=float(Tenure), predicted_score=float(prob))
-        # db.session.add(customer1)
-        # db.session.commit()
-
-        # logger.info("New customer evaluated as: %s", evaluation)
-
-        # result = "This customer will churn with probability {:0.3f} - classified as {}".format(prob, evaluation)
-        # return redirect(url_for('index'))
-        print('here')
-        print(place)
-        print('here')
-        # return render_template('index.html', result=result)
         return render_template('index.html', result=place[0], confusion=app.config["CONFUSION_PATH"])
     except:
-        # traceback.print_exc()
-        # logger.warning("Not able to display evaluations, error page returned")
         return render_template('error.html')
-
-
-# if __name__ == "__main__":
-#     app.run(debug=app.config["DEBUG"], port=app.config["PORT"], host=app.config["HOST"])
