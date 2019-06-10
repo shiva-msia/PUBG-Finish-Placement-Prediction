@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bootstrap 4, from LayoutIt!</title>
+    <title>PUBG Finish Place Prediction</title>
 
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
-
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/style.css" rel="stylesheet">
-
+	<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../static/css/style.css" rel="stylesheet">	-->
   </head>
   <body>
 
@@ -21,13 +21,13 @@
 		<div class="col-md-12">
 			<div class="jumbotron">
 				<h2>
-					Hello, world!
+					Rejoice PUB Fans!
 				</h2>
 				<p>
-					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+					With over 50 million copies sold, PUBG is the fifth best selling game of all time, and has millions of active monthly players. What's the best strategy to win in PUBG? Should you sit in one spot and hide your way into victory, or do you need to be the top shot? Let's let the data do the talking!
 				</p>
 				<p>
-					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+					<a class="btn btn-primary btn-large" href="https://www.pubg.com/">Learn more</a>
 				</p>
 			</div>
 			<form action="{{ url_for('add_entry') }}" method="post" class="add-entry">
@@ -37,9 +37,12 @@
 					<label for="exampleBoosts">
 						Boosts
 					</label>
-					<input type="number" class="form-control" name="Boosts" id="Boosts" min = "0" max = "24" required="required" placeholder="1">
-					<p class="help-block">
-						Enter a number between 0 and 24
+					<p class="help-block" style="color:green;font-size:12px;">
+						# of boost items(Energy Drink, Pain Killer and Adrenaline Syrigne) used. Number between 0 and 24.
+					</p>
+					<input type="number" class="form-control" name="Boosts" id="Boosts" min = "0" max = "24" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 1
 					</p>
 				</div>
 				<div class="form-group">
@@ -47,9 +50,12 @@
 					<label for="exampledamageDealt">
 						Damage Dealt
 					</label>
-					<input type="number" class="form-control" name="damageDealt" id="damageDealt" min = "0" max = "2500" required="required" placeholder="112">
-					<p class="help-block">
-						Enter a number between 0 and 2500
+					<p class="help-block" style="color:green;font-size:12px;">
+						Total damage dealt to enemies in the game (100 damage dealt is equivalent to killing a player). Number between 0 and 2500.
+					</p>
+					<input type="number" class="form-control" name="damageDealt" id="damageDealt" min = "0" max = "2500" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 112
 					</p>
 				</div>
 				<div class="form-group">
@@ -57,9 +63,12 @@
 					<label for="exampleheals">
 						Heals
 					</label>
-					<input type="number" class="form-control" name="heals" id="heals" min = "0" max = "50" required="required" placeholder="1">
-					<p class="help-block">
-						Enter a number between 0 and 50
+					<p class="help-block" style="color:green;font-size:12px;">
+						# of healing items (Bandages, Heath Kit and Medical Kit) used. Number between 0 and 50.
+					</p>
+					<input type="number" class="form-control" name="heals" id="heals" min = "0" max = "50" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 1
 					</p>
 				</div>
 				<div class="form-group">
@@ -67,9 +76,12 @@
 					<label for="examplekillStreaks">
 						Kill Streaks
 					</label>
-					<input type="number" class="form-control" name="killStreaks" id="killStreaks" min = "0" max = "18" required="required" placeholder="0">
-					<p class="help-block">
-						Enter a number between 0 and 18
+					<p class="help-block" style="color:green;font-size:12px;">
+						Maximum number of enemy players killed in a short amount of time. Number between 0 and 18.
+					</p>
+					<input type="number" class="form-control" name="killStreaks" id="killStreaks" min = "0" max = "18" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 0
 					</p>
 				</div>
 				<div class="form-group">
@@ -77,9 +89,12 @@
 					<label for="examplelongestKill">
 						Longest Kill
 					</label>
-					<input type="number" class="form-control" name="longestKill" id="longestKill" min = "0" max = "1000" required="required" placeholder="20">
-					<p class="help-block">
-						Enter a number between 0 and 1000
+					<p class="help-block" style="color:green;font-size:12px;">
+						Longest distance between player and player killed at time of death measured in meters. Number between 0 and 1000.
+					</p>
+					<input type="number" class="form-control" name="longestKill" id="longestKill" min = "0" max = "1000" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 20
 					</p>
 				</div>
 				<div class="form-group">
@@ -87,9 +102,12 @@
 					<label for="examplerideDistance">
 						Ride Distance
 					</label>
-					<input type="number" class="form-control" name="rideDistance" id="rideDistance" min = "0" max = "34000" required="required" placeholder="640">
-					<p class="help-block">
-						Enter a number between 0 and 34000
+					<p class="help-block" style="color:green;font-size:12px;">
+						Total distance traveled in vehicles measured in meters. Number between 0 and 34000.
+					</p>
+					<input type="number" class="form-control" name="rideDistance" id="rideDistance" min = "0" max = "34000" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 640
 					</p>
 				</div>
 				<div class="form-group">
@@ -97,9 +115,12 @@
 					<label for="examplewalkDistance">
 						Walk Distance
 					</label>
-					<input type="number" class="form-control" name="walkDistance" id="walkDistance" min = "0" max = "15000" required="required" placeholder="986">
-					<p class="help-block">
-						Enter a number between 0 and 15000
+					<p class="help-block" style="color:green;font-size:12px;">
+						Total distance traveled on foot measured in meters. Number between 0 and 15000.
+					</p>
+					<input type="number" class="form-control" name="walkDistance" id="walkDistance" min = "0" max = "15000" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 986
 					</p>
 				</div>
 				<div class="form-group">
@@ -107,9 +128,12 @@
 					<label for="exampleweaponsAcquired">
 						Weapons Acquired
 					</label>
-					<input type="number" class="form-control" name="weaponsAcquired" id="weaponsAcquired" min = "0" max = "52" required="required" placeholder="4">
-					<p class="help-block">
-						Enter a number between 0 and 52
+					<p class="help-block" style="color:green;font-size:12px;">
+						Number of weapons picked up. Number between 0 and 52
+					</p>
+					<input type="number" class="form-control" name="weaponsAcquired" id="weaponsAcquired" min = "0" max = "52" required="required">
+					<p class="help-block" style="color:red;font-size:10px;">
+						Hint : 4
 					</p>
 				</div>
 				<button type="submit" class="btn btn-primary">
@@ -126,8 +150,15 @@
 			</h2>
 			
 			<p>
-				<a class="btn" href="#">View details »</a>
+				Confusion matrix with PUBG Finish Place Actual vs Predicted.
+				Confusion matrix shows chances of right finish place prediction for each finish place bucket.
 			</p><img alt="Bootstrap Image Preview" src="https://pubg-finish-prediction-app.s3.us-east-2.amazonaws.com/figures/confusion_matrix.png" style="width:350px;height:300px;">
+			<p style="color:red;font-size:7px;">
+				Bucket 0 - Place 1 to 25
+				| Bucket 1 - Place 25 to 50
+				| Bucket 2 - Place 50 to 75
+				| Bucket 3 - Place 75 to 100
+			</p>
 		</div>
 		<div class="col-md-4">
 			<h2>
@@ -135,7 +166,8 @@
 			</h2>
 			
 			<p>
-				<a class="btn" href="#">View details »</a>
+				The importance of each feature towards predicting the finish place of the PUBG player.
+				Random Forest model is used for Feature Importance generation.
 			</p><img alt="Bootstrap Image Preview" src="https://pubg-finish-prediction-app.s3.us-east-2.amazonaws.com/figures/feature_importance.png" style="width:350px;height:300px;">
 		</div>
 		<div class="col-md-4">
@@ -144,11 +176,13 @@
 			</h2>
 			
 			<p>
-				<a class="btn" href="#">View details »</a>
+				Submit in-game statistics in the form to find the predicted PUBG finish place below.
+				Random Forest model is used for Finish Place prediction.
+				
 			</p>
-			<h3>
+			<p style="color:#A93226;font-size:200px;">
 				{{result}}
-			</h3>
+			</p>
 		</div>
 	</div>
 </div>
