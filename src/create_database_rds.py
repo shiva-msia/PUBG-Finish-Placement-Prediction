@@ -12,7 +12,6 @@ from sqlalchemy import create_engine, Column, Integer, String, Text
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import pandas as pd
-import pymysql
 import logging.config
 
 
@@ -133,25 +132,14 @@ def create_db(args):
             print("Creating sqlite database")
         Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
-        print("Import data")
+        logger.info("Import data")
         df = pd.read_csv("https://s3.us-east-2.amazonaws.com/pubg-finish-prediction-app/Data/train_pubg.csv")
         short_df = df[df['matchType'] == 'solo']
-        #short_df = short_df.iloc[1:100,:]
-        print("Establish connection")
         session = get_session(engine)
-        print("Insert data")
-        # old_ARIMA_Params = session.query(ARIMA_Params.CURRENCY, ARIMA_Params.P, ARIMA_Params.D, ARIMA_Params.Q)
-        # old_ARIMA_Params.delete()
+        logger.info("Insert data")
         session.bulk_insert_mappings(train_pubg, short_df.to_dict(orient="records"))
         session.commit()
-
-        print("Database created with tables")
-        # with open(src.config.DBCONFIG, "r") as f:
-        #     db = yaml.load(f)
-        # temp_conn = pymysql.connect(host=db['host'], user=args.user, port=db['port'], passwd=args.password, db=db['dbname'])
-        # print("Running Query")
-        # temp = pd.read_sql('select count(*) from train_pubg limit 10;', con=temp_conn)
-        # print(temp)
+        logger.info("Database created with tables")
     except Exception as e:
-        print("error")
+        logger.warning("error")
         sys.exit(1)

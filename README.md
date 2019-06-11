@@ -1,4 +1,6 @@
-# PUBG Finish Placement Prediction
+# PUBG Finish Placement Prediction 
+
+App Link - http://18.221.236.13:3000/
 
 ## Project Charter
 
@@ -81,22 +83,25 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
 6. Change the RDS configurations 
  - vi config/dbconfig.yml
 	> Change host to desired RDS host name
-7. To create database and insert data	
+7. configure AWS settings with your username and pass credentials
+ - aws configure
+	> enter your secret key id
+	> and secret key password
+	> pros enter for default region name
+	> press enter for default output format
+8. To create database and insert data	
  - python run.py create_db --user root --password <password>
 	> Pass in the user and password corresponding to the updated RDS host
-8. To generate features
+9. To generate features
  - python run.py generate_features --config=config/config.yml --user root --password <password>
 	> Pass in the user and password corresponding to the updated RDS host
-9. To train model
+10. To train model
  - python run.py train_model --config=config/config.yml
-10. To score model
+11. To score model
  - python run.py score_model --config=config/config.yml
-11. To evaluate model
+12. To evaluate model
  - python run.py evaluate_model --config=config/config.yml
-7. Run app
- - python run.py app
-
-10. Run app
+13. Run app
  - python run.py app
 
 	-- Note : All data is stored and retrived from S3
@@ -113,7 +118,13 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
  - cd PUBG-Finish-Placement-Prediction/
 5. Install requirements.txt file
  - pip install -r requirements.txt
-6. Run app
+6. configure AWS settings with your username and pass credentials
+ - aws configure
+	> enter your secret key id
+	> and secret key password
+	> pros enter for default region name
+	> press enter for default output format
+7. Run app
  - python run.py app
 
 ## Steps to deploy PUBG Finish Prediction app in EC2
@@ -130,17 +141,40 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
  - cd PUBG-Finish-Placement-Prediction/
 5. Install requirements.txt file
  - pip install -r requirements.txt
-6. Change the HOST from "127.0.0.1" to "0.0.0.0" in app_config.py
+6. configure AWS settings with your username and pass credentials
+ - aws configure
+	> enter your secret key id
+	> and secret key password
+	> pros enter for default region name
+	> press enter for default output format
+7. Change the HOST from "127.0.0.1" to "0.0.0.0" in app_config.py
  - vi app/app_config.py
-7. Check screen version
+8. Check screen version
  - screen --version
-8. Start screen named session
+9. Start screen named session
  - screen -S msia423-screen-session
  - conda activate pubg
-9. Run app
+10. Run app
  - python run.py app
-10. Detach screen session
+12. Detach screen session
  - ctrl+a d
+ 
+## Running Unit Tests:
+
+1. Create new environment
+ - conda create --name pubg python=3.7
+ - conda activate pubg
+3. Clone the git project into the env:  pubg
+ - git init
+ - git clone https://github.com/shiva-msia/PUBG-Finish-Placement-Prediction.git
+4. Go into PUBG-Finish-Placement-Prediction folder
+ - cd PUBG-Finish-Placement-Prediction/
+5. Install requirements.txt file
+ - pip install -r requirements.txt
+6. Got to unit folder
+ - cd test/unit
+7. Run test
+ - pytest
 
 ## Repo Structure
 
