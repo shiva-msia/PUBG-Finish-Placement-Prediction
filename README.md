@@ -90,10 +90,10 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
 	> pros enter for default region name
 	> press enter for default output format
 8. To create database and insert data	
- - python run.py create_db --user root --password <<password>>
+ - python run.py create_db --user root --password (password here)
 	> Pass in the user and password corresponding to the updated RDS host
 9. To generate features
- - python run.py generate_features --config=config/config.yml --user root --password <<password>>
+ - python run.py generate_features --config=config/config.yml --user root --password (password here)
 	> Pass in the user and password corresponding to the updated RDS host
 10. To train model
  - python run.py train_model --config=config/config.yml
