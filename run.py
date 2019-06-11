@@ -12,7 +12,7 @@ logging.config.fileConfig("config/logging/local.conf")
 logger = logging.getLogger("pubg_predictor")
 
 
-def run_app():
+def run_app(args):
     """Function to run flask app"""
     # Configure flask app from config.py
     app.config.from_object('app.app_config')
