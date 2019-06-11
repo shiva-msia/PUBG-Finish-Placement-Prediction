@@ -5,11 +5,15 @@ from src.generate_features import run_generate
 from src.train_model import run_train
 from src.score_model import run_score
 from src.evaluate_model import run_evaluate
-# from src.postprocess import predict_user_input, post_process
 from app.app import app
+import logging.config
+
+logging.config.fileConfig("config/logging/local.conf")
+logger = logging.getLogger("pubg_predictor")
 
 
-def run_app(args):
+def run_app():
+    """Function to run flask app"""
     # Configure flask app from config.py
     app.config.from_object('app.app_config')
     app.run(debug=app.config["DEBUG"], port=app.config["PORT"], host=app.config["HOST"])
@@ -19,7 +23,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run components of the model source code")
     subparsers = parser.add_subparsers()
 
-    # Database subparser
+    # DATABASE subparser
     sb_db = subparsers.add_parser("create_db", description="Create Database")
     sb_db.add_argument('--user', default=None, help="Username for connecting to the database")
     sb_db.add_argument('--password', default=None, help='Password')

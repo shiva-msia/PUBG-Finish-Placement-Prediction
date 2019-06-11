@@ -13,6 +13,10 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import pandas as pd
 import pymysql
+import logging.config
+
+
+logger = logging.getLogger(__name__)
 
 
 def ifin(param, dictionary, alt=None):

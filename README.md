@@ -65,9 +65,59 @@ Built a prediction pipeline to predict finish placement in PUBG and productional
 - Create a fancy front-end UI using D3
 - Use spacial data to recommend the best places to land in a PUBG map
 
-## Steps to deploy PUBG Finish Prediction app
 
-**Steps to create a new conda environment to run python scripts:**
+## Steps to run PUBG Finish Prediction app pipeline end-to-end
+
+1. Create new environment
+ - conda create --name pubg python=3.7
+ - conda activate pubg
+3. Clone the git project into the env:  pubg
+ - git init
+ - git clone https://github.com/shiva-msia/PUBG-Finish-Placement-Prediction.git
+4. Go into PUBG-Finish-Placement-Prediction folder
+ - cd PUBG-Finish-Placement-Prediction/
+5. Install requirements.txt file
+ - pip install -r requirements.txt
+6. Change the RDS configurations 
+ - vi config/dbconfig.yml
+	> Change host to desired RDS host name
+7. To create database and insert data	
+ - python run.py create_db --user root --password <password>
+	> Pass in the user and password corresponding to the updated RDS host
+8. To generate features
+ - python run.py generate_features --config=config/config.yml --user root --password <password>
+	> Pass in the user and password corresponding to the updated RDS host
+9. To train model
+ - python run.py train_model --config=config/config.yml
+10. To score model
+ - python run.py score_model --config=config/config.yml
+11. To evaluate model
+ - python run.py evaluate_model --config=config/config.yml
+7. Run app
+ - python run.py app
+
+10. Run app
+ - python run.py app
+
+	-- Note : All data is stored and retrived from S3
+
+## Steps to launch PUBG Finish Prediction app in local
+
+1. Create new environment
+ - conda create --name pubg python=3.7
+ - conda activate pubg
+3. Clone the git project into the env:  pubg
+ - git init
+ - git clone https://github.com/shiva-msia/PUBG-Finish-Placement-Prediction.git
+4. Go into PUBG-Finish-Placement-Prediction folder
+ - cd PUBG-Finish-Placement-Prediction/
+5. Install requirements.txt file
+ - pip install -r requirements.txt
+6. Run app
+ - python run.py app
+
+## Steps to deploy PUBG Finish Prediction app in EC2
+ 
 1. SSH onto EC2 Instance
    
 2. Create new environment

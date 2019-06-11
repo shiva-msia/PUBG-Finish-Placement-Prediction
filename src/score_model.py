@@ -3,6 +3,10 @@ import pandas as pd
 import yaml
 import pickle
 import boto3
+import logging.config
+
+
+logger = logging.getLogger(__name__)
 
 
 def score_model(model, data):
@@ -16,10 +20,12 @@ def score_model(model, data):
     predicted = model.predict(data)
     predicted = np.where(predicted < 0, 0, predicted)
     predicted = np.where(predicted > 1, 1, predicted)
+    logger.info("Model scored")
     return predicted
 
 
 def run_score(args):
+    """Function to run predict_model function"""
     with open(args.config, "r") as f:
         config = yaml.load(f)
     test_predictor = pd.read_csv("https://pubg-finish-prediction-app.s3.us-east-2.amazonaws.com/" + config['score']['PREDICTOR'])

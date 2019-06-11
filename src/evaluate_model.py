@@ -8,6 +8,10 @@ from sklearn.metrics import r2_score
 from sklearn import metrics
 from io import BytesIO
 import boto3
+import logging.config
+
+
+logger = logging.getLogger(__name__)
 
 
 def eveluate_model(actual, predicted):
@@ -30,6 +34,7 @@ def eveluate_model(actual, predicted):
     temp_predicted = np.where((temp_predicted > 0.75) & (temp_predicted <= 1), 5, temp_predicted)
     confusion_matrix = metrics.confusion_matrix(temp_actual.astype("int"), temp_predicted.astype("int"),
                                                 labels=[2, 3, 4, 5])
+    logger.info("Calculated R2 and Confusion matrix")
     return r2, confusion_matrix
 
 
@@ -46,6 +51,7 @@ def plot_confusion(confusion_data, save_path):
     file_name = save_path
     key_name = save_path
     s3.upload_file(file_name, bucket, key_name)
+    logger.info("Plotted confusion matrix")
 
 
 def plot_feature_importance(model, predictor, save_path):
@@ -64,9 +70,11 @@ def plot_feature_importance(model, predictor, save_path):
     file_name = save_path
     key_name = save_path
     s3.upload_file(file_name, bucket, key_name)
+    logger.info("Plotted feature importance")
 
 
 def run_evaluate(args):
+    """Function to run evaluate_model and plot confusion matrix and feature importance"""
     with open(args.config, "r") as f:
         config = yaml.load(f)
 
@@ -88,6 +96,6 @@ def run_evaluate(args):
     train_predictor = pd.read_csv("https://pubg-finish-prediction-app.s3.us-east-2.amazonaws.com/" + config['evaluate']['PREDICTOR'])
     plot_feature_importance(rf_fit, train_predictor, importance_path)
     s3_resource = boto3.resource('s3')
-    np.save(open(config['evaluate']['R2_PATH'], "wb"), predicted)
+    np.save(open(config['evaluate']['R2_PATH'], "wb"), r2)
     s3_resource.Object(config['evaluate']['S3_BUCKET'], config['evaluate']['R2_PATH']).put(Body=open(config['evaluate']['R2_PATH'], 'rb'))
 

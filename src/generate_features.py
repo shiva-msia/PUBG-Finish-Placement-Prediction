@@ -5,6 +5,10 @@ from io import StringIO
 from sklearn.model_selection import train_test_split
 import pymysql
 import src.config
+import logging.config
+
+
+logger = logging.getLogger(__name__)
 
 
 def acquire_data(user, password):
@@ -17,6 +21,7 @@ def acquire_data(user, password):
         db = yaml.load(f)
     conn = pymysql.connect(host=db['host'], user=user, port=db['port'], passwd=password, db=db['dbname'])
     data = pd.read_sql('select * from train_pubg;', con=conn)
+    logger.info("Data acquired from RDS")
     return data
 
 
@@ -36,6 +41,7 @@ def generate_features(data, feature_list):
     response = clean['winPlacePerc']
     predictor = clean.drop(['winPlacePerc'],axis = 1)
     X_train, X_test, y_train, y_test = train_test_split(predictor, response, test_size=0.3)
+    logger.info("Generated Features")
     return X_train, X_test, y_train, y_test
 
 
@@ -49,6 +55,7 @@ def save_data(data, s3_bucket, save_path):
     data.to_csv(csv_buffer, header=True, index=False)
     s3_resource = boto3.resource('s3')
     s3_resource.Object(s3_bucket, save_path).put(Body=csv_buffer.getvalue())
+    logger.info("Features saved in S3")
 
 
 def run_generate(args):

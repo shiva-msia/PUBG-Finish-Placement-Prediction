@@ -3,6 +3,10 @@ import pickle
 import yaml
 import boto3
 from sklearn.ensemble import RandomForestRegressor
+import logging.config
+
+
+logger = logging.getLogger(__name__)
 
 
 def train_model(predictor, response):
@@ -15,6 +19,7 @@ def train_model(predictor, response):
 
     rf = RandomForestRegressor(max_depth=5, n_estimators=300,random_state=False, verbose=False)
     fit = rf.fit(predictor, response)
+    logger.info("Random Forest model trained")
     return fit
 
 
@@ -27,9 +32,11 @@ def save_model(model, s3_bucket, save_path):
     s3_resource = boto3.resource('s3')
     pickle.dump(model, open(save_path, "wb"))
     s3_resource.Object(s3_bucket, save_path).put(Body=open(save_path, 'rb'))
+    logger.info("Random Forest model saved in S3")
 
 
 def run_train(args):
+    """Function to run train_model and save_model functions"""
     with open(args.config, "r") as f:
         config = yaml.load(f)
     train_predictor = pd.read_csv("https://pubg-finish-prediction-app.s3.us-east-2.amazonaws.com/" + config['train']['PREDICTOR'])

@@ -5,6 +5,11 @@ from flask import render_template, request, redirect, url_for
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import boto3
+import logging.config
+
+
+logger = logging.getLogger(__name__)
+
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -55,7 +60,7 @@ def add_entry():
         response = s3client.get_object(Bucket=app.config['S3_BUCKET'], Key=app.config["MODEL_PATH"])
         body = response['Body'].read()
         model = pickle.loads(body)
-        # logger.info("model loaded!")
+        logger.info("model loaded!")
 
         predicted = model.predict(pd.DataFrame({'boosts': boosts,
                                                 'damageDealt': damageDealt,
